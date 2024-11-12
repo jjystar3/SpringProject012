@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.example.demo.security.ApiCheckFilter;
 import com.example.demo.security.UserDetailsServiceImpl;
@@ -29,7 +30,7 @@ public class SecurityConfig {
 
 	@Bean
 	public ApiCheckFilter apliCheckFilter() {
-		return new ApiCheckFilter();
+		return new ApiCheckFilter(customUserDetailsService());
 	}
 
 	@Bean
@@ -48,6 +49,9 @@ public class SecurityConfig {
 		// formLogin 비활성화
 		http.formLogin().disable();
 		
+		http.addFilterBefore(apliCheckFilter(), 
+				UsernamePasswordAuthenticationFilter.class);
+
 		return http.build();
 	}
 	

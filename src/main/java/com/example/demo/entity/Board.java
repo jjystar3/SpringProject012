@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +32,10 @@ public class Board extends BaseEntity {
     @Column(length = 1500, nullable = false)
     String content;
 
-    @Column(length = 50, nullable = false)
-    String writer;
+//    @Column(length = 50, nullable = false)
+//    String writer;
+    
+    @ManyToOne
+    Member writer;
 
 }
